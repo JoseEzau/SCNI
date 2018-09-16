@@ -1,0 +1,400 @@
+------------------------Insertar Boletas---------------------
+
+DELIMITER $$
+
+CREATE
+    
+    PROCEDURE `scni`.`Ins_boletas`(
+    IN c_IDBoleta INT,
+    IN c_IDInversionista INT,
+    IN c_Descripcion VARCHAR(200),
+    IN c_NumMedidor VARCHAR(15), 
+    IN c_NumContrato INT,
+    IN c_MontoDonado DOUBLE, 
+    IN c_FirmaDigital VARCHAR(255),
+    IN c_AdImagenCedula VARCHAR(255))
+    
+    
+	BEGIN
+	INSERT INTO tbl_boletas (IDBoleta,IDInversionista,Descripcion,NumMedidor,NumContrato,MontoDonado,FirmaDigital,AdImagenCedula)
+	
+	VALUES (c_IDBoleta,c_IDInversionista,
+	c_Descripcion,c_NumMedidor,
+	_NumContrato,c_MontoDonado,
+        c_FirmaDigital, c_AdImagenCedula);
+
+	END$$
+
+DELIMITER ;
+
+----------------------------------------Insertar Donaciones----------------------
+
+DELIMITER $$
+
+CREATE
+     PROCEDURE `scni`.`Ins_donaciones`(
+       IN c_IDDonacion INT,
+      IN c_NombrePersona VARCHAR(20), 
+      IN c_Apellido1 VARCHAR(20), 
+      IN c_Apellido2 VARCHAR(20),
+      IN c_Cedula VARCHAR(20),
+      IN c_TipoDonación VARCHAR(20),
+      IN c_Telefono VARCHAR(10),
+      IN c_Direccion VARCHAR(200),
+      IN c_NumeroCuenta VARCHAR(20),
+      IN c_MontoDonado INT,
+      IN c_ConcurrenciaPago VARCHAR(20),
+      IN c_Estado VARCHAR(20))
+ 
+	BEGIN
+    INSERT INTO tbl_donaciones(IDDonacion,NombrePersona, Apellido1, Apellido2,Cedula,TipoDonación, Telefono,
+                                Direccion, NumeroCuenta, MontoDonado, ConcurrenciaPago,Estado )
+                                
+         VALUES (c_IDDonacion, c_NombrePersona, c_Apellido1, c_Apellido2, c_Cedula, c_TipoDonación, c_Telefono, c_Direccion ,
+     c_NumeroCuenta, c_MontoDonado, c_ConcurrenciaPago, c_Estado);
+	END$$
+
+DELIMITER ;
+
+----------------------------------------Insertar enidadesFinancieras
+
+DELIMITER $$
+
+CREATE PROCEDURE `Ins_entidadesfinancieras`(
+IN c_IDEntidadFinanciera INT,
+IN c_Descripcion VARCHAR(200),
+IN c_Abreviatura VARCHAR(5),
+IN c_Telefono1 VARCHAR(15),
+IN c_Telefono2 VARCHAR(15),
+IN c_Estado VARCHAR(10)
+)
+BEGIN
+	INSERT INTO tbl_entidadesfinancieras(IDEntidadFinanciera, Descripcion, Abreviatura, Telefono1, Telefono2, Estado)
+	VALUES(c_IDEntidadFinanciera,c_Descripcion, c_Abreviatura, c_Telefono1, c_Telefono2, c_Estado);
+
+	END$$
+DELIMITER ;
+
+
+---------------------------Insertar entidadesFinanciamiento------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_entidadesfinanciamiento`(
+IN c_IDFinanciamiento INT,
+IN c_NombreEntidad VARCHAR(20),
+IN c_TipoEntidad VARCHAR(30),
+IN c_CedulaJuridica VARCHAR(30),
+IN c_Telefono VARCHAR(15),
+IN c_PersonaContacto VARCHAR(20),
+IN c_Apellido1 VARCHAR(20),
+IN c_Apellido2 VARCHAR(20),
+IN c_Ceula VARCHAR(20),
+IN c_TelefonoContacto VARCHAR(10),
+IN c_CorreoContacto VARCHAR(100),
+IN c_PaginaWeb VARCHAR(50),
+IN c_Estado VARCHAR(10)
+)
+  
+	BEGIN
+     INSERT INTO tbl_entidadesfinanciamiento(IDFinanciamiento, NombreEntidad, TipoEntidad, CedulaJuridica,Telefono,
+                                              PersonaContacto, Apellido1, Apellido2, Cedula, TelefonoContacto, 
+                                              CorreoContacto, PaginaWeb, Estado)
+                                              
+      VALUES(c_IDFinanciamiento,c_NombreEntidad,c_TipoEntidad,
+             c_CedulaJuridica,c_Telefono,c_PersonaContacto,c_Apellido1,
+             c_Apellido2,c_Cedula,c_TelefonoContacto ,c_CorreoContacto ,c_PaginaWeb ,c_Estado);
+	END$$
+
+DELIMITER ;
+
+--------------------------------------insertar general
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_general`(IN c_Nombre VARCHAR(30),
+IN c_Direccion VARCHAR(30),
+IN c_Ciudad VARCHAR(20),
+IN c_Provincia VARCHAR(20),
+IN c_CedulaJuridica VARCHAR(20),
+IN c_Telefono VARCHAR(15),
+IN c_Fax VARCHAR(15),
+IN c_SitioWeb VARCHAR(30),
+IN c_Correo VARCHAR(30),
+IN c_CorreoContacto(30))
+   
+	BEGIN
+	INSERT INTO tbl_general(Nombre,Direccion,Ciudad,Provincia,CedulaJuridica,Telefono,Fax,SitioWeb,Correo,CorreoContacto)
+        
+        VALUES(c_Nombre,c_Direccion,c_Ciudad,c_Provincia,c_CedulaJuridica,c_Telefono,c_Fax,c_SitioWeb,c_Correo,c_CorreoContacto);
+	END$$
+
+DELIMITER ;
+
+--------------------------insertar Junta Directiva
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_juntadirectiva`(
+IN c_IDJuntaDirectiva INT,
+IN c_Descripcion VARCHAR(30), 
+IN c_Estado varchar(10))
+    
+	BEGIN
+	INSERT INTO tbl_juntadirectiva(IDJuntaDirectiva,Descripcion,Estado)
+VALUES(c_IDJuntaDirectiva,c_Descripcion,c_Estado);
+	END$$
+
+DELIMITER ;
+
+------------------------------------insertar Moneda-----------------
+
+DELIMITER $$
+
+CREATE PROCEDURE `Ins_moneda`(
+IN c_IDMoneda INT,
+IN c_Abreviatura VARCHAR(5),
+IN c_Descripcion VARCHAR(20),
+IN c_Simbolo VARCHAR(5),
+IN c_Estado VARCHAR(10))
+
+BEGIN 
+INSERT INTO tbl_moneda(IDMoneda,Abreviatura,Descripcion,Simbolo,Estado)
+  
+VALUES(c_IDMoneda,c_Abreviatura,c_Descripcion,c_Simbolo,c_Estado);
+	END$$
+
+DELIMITER ;
+---------------------Metodos Actualizar-------------------------------------------------
+---------------------------------actualizar Donaciones-------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_donaciones`(
+IN c_IDDonacion INT,
+IN c_NombrePersona VARCHAR(20),
+IN c_Apellido1 VARCHAR(20),
+IN c_Apellido2 VARCHAR(20),
+IN c_Cedula VARCHAR(20),
+IN c_TipoDonacion VARCHAR(20),
+IN c_Telefono VARCHAR(10),
+IN c_Direccion VARCHAR(200),
+IN c_NumeroCuenta VARCHAR(20),
+IN c_MontoDonado DOUBLE,
+IN c_ConcurrenciaPago VARCHAR(20),
+IN c_Estado VARCHAR(20))
+BEGIN
+ UPDATE tbl_donaciones SET   NombrePersona=c_NombrePersona,
+                         Apellido1=c_Apellido1,
+                         Apellido2=c_Apellido2,
+                         Cedula=c_Cedula,
+                         TipoDonacion=c_TipoDonacion,
+                         Telefono=c_Telefono,
+                         Direccion=c_Direccion,
+                         NumeroCuenta=c_NumeroCuenta,
+                         MontoDonado=c_MontoDonado,
+                         ConcurrenciaPago=c_ConcurrenciaPago,
+                         Estado=c_Estado  
+                         WHERE IDDonacion = c_IDDonacion;
+	END$$
+
+DELIMITER ;
+
+--------------------------Actualizar EntidadesFinancieras-------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_entidadesfinancieras`(
+    IN c_IDEntidadFinanciera INT,
+    IN c_Descripcion VARCHAR(200),
+    IN c_Abreviatura VARCHAR(5),
+    IN c_Telefono1 VARCHAR(15),
+    IN c_Telefono2 VARCHAR(15),
+    IN c_Estado VARCHAR(10))
+   
+	BEGIN
+	UPDATE tbl_entidadesfinancieras SET Descripcion=c_Descripcion,
+	                                    Abreviatura=c_Abreviatura,
+	                                    Telefono1=c_Telefono1,
+	                                    Telefono2=c_Telefono2,
+	                                    Estado=c_Estado WHERE IDEntidadFinanciera=c_IDEntidadFinanciera;
+
+	END$$
+
+DELIMITER ;
+
+Actualizar EntidadesFinanciamiento
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_entidadesfinanciamiento`(
+IN c_IDFinanciamiento INT,
+IN c_NombreEntidad VARCHAR(20),
+IN c_TipoEntidad VARCHAR(30),
+IN c_CedulaJuridica VARCHAR(30),
+IN c_Telefono VARCHAR(15),
+IN c_PersonaContacto VARCHAR(20),
+IN c_Apellido1 VARCHAR(20),
+IN c_Apellido2 VARCHAR(20),
+IN c_Ceula VARCHAR(20),
+IN c_TelefonoContacto VARCHAR(10),
+IN c_CorreoContacto VARCHAR(100),
+IN c_PaginaWeb VARCHAR(50),
+IN c_Estado VARCHAR(10)
+)
+ 
+	BEGIN
+UPDATE tbl_entidadesfinanciamiento SET 
+ NombreEntidad=c_NombreEntidad,
+  TipoEntidad=c_TipoEntidad,
+   CedulaJuridica=c_CedulaJuridica,
+   Telefono=c_Telefono,
+  PersonaContacto=c_PersonaContacto, 
+  Apellido1=c_Apellido1,
+   Apellido2=c_Apellido2,
+    Cedula=c_Cedula,
+     TelefonoContacto=c_TelefonoContacto, 
+   CorreoContacto=c_CorreoContacto, 
+   PaginaWeb=c_PaginaWeb, 
+   Estado=c_Estado  WHERE IDFinanciamiento=c_IDFinanciamiento;
+	END$$
+
+DELIMITER ;
+
+actualizar general
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_general`(
+IN c_Nombre VARCHAR(30),
+IN c_Direccion VARCHAR(30),
+IN c_Ciudad VARCHAR(20),
+IN c_Provincia VARCHAR(20),
+IN c_CedulaJuridica VARCHAR(20),
+IN c_Telefono VARCHAR(15),
+IN c_Fax VARCHAR(15),
+IN c_SitioWeb VARCHAR(30),
+IN c_Correo VARCHAR(30),
+IN c_CorreoContacto VARCHAR(30)
+)
+  
+	BEGIN
+UPDATE tbl_general SET Direccion=c_Direccion,
+                      Ciudad=c_Ciudad,
+                      Provincia=c_Provincia,
+                      CedulaJuridica=c_CedulaJuridica,
+                     Telefono=c_Telefono,
+                     Fax=c_Fax,
+                      SitioWeb=c_SitioWeb,
+                      Correo=c_Correo,
+                      CorreoContacto=c_CorreoContacto WHERE  Nommbre=c_Nombre;
+	END$$
+
+DELIMITER ;
+
+actualizar juntaDirectiva
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_juntadirectiva`(
+IN c_IDJuntaDirectiva INT,
+IN c_Descripcion VARCHAR(30), 
+IN c_Estado VARCHAR(10)
+)
+   
+	BEGIN
+  UPDATE tbl_juntadirectiva SET Descripcion=c_Descripcion,
+                                 Estado=c_Estado WHERE IDJuntaDirectiva=c_IDJuntaDirectiva;
+	END$$
+
+DELIMITER ;
+
+actualizar moneda
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_moneda`(
+IN c_IDMoneda INT,
+IN c_Abreviatura VARCHAR(5),
+IN c_Descripcion VARCHAR(20),
+IN c_Simbolo VARCHAR(5),
+IN c_Estado VARCHAR(10))
+   
+BEGIN 
+UPDATE tbl_moneda SET  Abreviatura=c_Abreviatura,
+                       Descripcion=c_Descripcion,
+                       Simbolo=c_Simbolo,
+                       Estado=c_Estado WHERE IDMoneda=c_IDMoneda;
+	END$$
+
+DELIMITER ;
+
+----------------------------------Visualizar--------------------------------
+---------------------------------------Visualizar donaciones-------------------
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_donaciones`()
+    
+	BEGIN
+SELECT IDDonacion,NombrePersona, Apellido1, Apellido2,Cedula,TipoDonación, Telefono,
+       Direccion, NumeroCuenta, MontoDonado, ConcurrenciaPago,Estado 
+       FROM tbl_donaciones;
+	END$$
+
+DELIMITER ;
+
+----------------------Visualizar Entidades Financieras---------------
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_entidadesfinancieras`()
+
+BEGIN
+SELECT IDEntidadFinanciera, Descripcion, Abreviatura, Telefono1, Telefono2, Estado FROM tbl_entidadesfinancieras;
+	END$$
+
+DELIMITER ;
+-------------Visualizar entidades Financiamiento--------------
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_entidadesfinanciamiento`()
+    
+	BEGIN
+SELECT IDFinanciamiento, NombreEntidad, TipoEntidad, CedulaJuridica,Telefono,
+       PersonaContacto, Apellido1, Apellido2, Cedula, TelefonoContacto, 
+       CorreoContacto, PaginaWeb, Estado 
+       FROM tbl_entidadesfinanciamiento;
+	END$$
+
+DELIMITER ;
+----------------visualizar general-------------
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_general`()
+  
+	BEGIN
+SELECT Nombre,Direccion,Ciudad,Provincia,CedulaJuridica,Telefono,Fax,SitioWeb,Correo,CorreoContacto FROM tbl_general;
+	END$$
+
+DELIMITER ;
+
+---------------------visualizar juntadirectiva------------
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_juntadirectiva`()
+    
+	BEGIN
+SELECT  IDJuntaDirectiva,Descripcion,Estado FROM tbl_juntadirectiva;
+	END$$
+
+DELIMITER ;
+
+-------------------Visualizar Moneda------------
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_moneda`()
+   
+	BEGIN
+SELECT IDMoneda,Abreviatura,Descripcion,Simbolo,Estado FROM tbl_moneda;
+	END$$
+
+DELIMITER ;

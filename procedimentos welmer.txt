@@ -1,0 +1,294 @@
+ inserta costos
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_Costos`( IN  c_IDCostos INT, IN c_Descripcion VARCHAR(20), IN c_Estado VARCHAR(10)	)
+    
+	BEGIN
+INSERT INTO tbl_Costos(IDCostos,Descripcion,Estado)
+VALUES (c_IDCostos,c_Descripcion,c_Estado);
+
+
+
+	END$$
+
+DELIMITER ;
+
+
+
+insertar acta
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_Actas`( IN a_IDActa INT , IN a_Fecha DATE, IN a_HoraInicio TIME,
+IN a_HoraFinal TIME, IN a_Lugar VARCHAR(200),
+IN a_Asistencia VARCHAR(200), IN a_IDTipoActa INT,
+IN a_NumActa INT, IN a_Observaciones VARCHAR(200),
+IN a_Agenda  VARCHAR(200), IN a_Detalle VARCHAR(200),
+IN a_Acuerdos VARCHAR(200), IN  a_Costos DOUBLE)
+   
+    
+	BEGIN
+	INSERT INTO tbl_Actas(IDActa,Fecha,HoraInicio,HoraFinal,Lugar,Asistencia,IDTipoActa,NumActa,Observaciones,Agenda,Detalle,Acuerdos,Costos)
+VALUES (  a_IDActa  ,  a_Fecha ,  a_HoraInicio ,
+ a_HoraFinal ,  a_Lugar ,
+ a_Asistencia , a_IDTipoActa ,
+a_NumActa ,  a_Observaciones ,
+ a_Agenda  ,  a_Detalle ,
+ a_Acuerdos ,   a_Costos );
+	END$$
+
+DELIMITER ;
+
+
+
+inserta categoria de tipo cambio
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_CategoriaTipoCambio`(IN c_IDCategoriaTipoCambio INT, IN c_Categoria VARCHAR(20),IN c_IDEntidadFinanciera INT,
+IN c_IDMoneda INT )
+    
+	BEGIN
+INSERT INTO tbl_categoriatipocambio(IDCategoriaTipoCambio,Categoria,IDEntidadFinanciera,IDMoneda)
+VALUES  (c_IDCategoriaTipoCambio ,  c_Categoria , c_IDEntidadFinanciera ,
+ c_IDMoneda  );
+	END$$
+
+DELIMITER ;
+
+insertar  documento
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_Documentos`(IN d_IDDocumento INT, IN d_Descripcion VARCHAR(200), IN d_TipoMovimiento VARCHAR(20))
+   
+	BEGIN
+	INSERT INTO tbl_Documentos(IDDocumento,Descripcion,TipoMovimiento )
+	VALUES (d_IDDocumento , d_Descripcion ,  d_TipoMovimiento );
+
+	END$$
+
+DELIMITER ;
+
+
+-------------------------------------------------inserta Cuentas  Bancarias 
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_CuentasBancarias`(
+IN c_IDCuentaBancaria INT,
+IN c_NumeroCuenta VARCHAR(20),
+IN c_Descripcion  VARCHAR(200),
+IN c_TipoCuenta VARCHAR(15),
+IN c_IDMoneda  INT,
+IN c_IDEntidadFinaciera INT,
+IN c_CuentaCliente VARCHAR(20),
+IN c_SaldoLibros DOUBLE,
+IN c_SaldoBancos DOUBLE,
+IN c_Estado VARCHAR(10)
+)
+BEGIN
+	INSERT INTO tbl_CuentasBancarias(IDCuentaBancaria,NumeroCuenta,Descripcion,TipoCuenta,IDMoneda,IDEntidadFinanciera,CuentaCliente,SaldoLibros,SaldoBancos,Estado)
+VALUES(
+ c_IDCuentaBancaria ,
+ c_NumeroCuenta ,
+ c_Descripcion  ,
+ c_TipoCuenta ,
+ c_IDMoneda  ,
+ c_IDEntidadFinaciera ,
+ c_CuentaCliente ,
+ c_SaldoLibros ,
+ c_SaldoBancos ,
+ c_Estado
+);
+END$$
+DELIMITER ;
+
+
+
+
+
+MODIFICAR---------------------------------------------------------------
+
+
+
+
+MODIFICAR ACTAS----
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_Actas`(IN a_IDActa INT , IN a_Fecha DATE, IN a_HoraInicio TIME,
+IN a_HoraFinal TIME, IN a_Lugar VARCHAR(200),
+IN a_Asistencia VARCHAR(200), IN a_IDTipoActa INT,
+IN a_NumActa INT, IN a_Observaciones VARCHAR(200),
+IN a_Agenda  VARCHAR(200), IN a_Detalle VARCHAR(200),
+IN a_Acuerdos VARCHAR(200), IN  a_Costos DOUBLE)
+   
+	BEGIN
+UPDATE tbl_actas SET
+Fecha = a_Fecha,
+HoraInicio= a_HoraInicio,
+HoraFinal= a_HoraFinal,
+Lugar=a_Lugar,
+Asistencia=a_Asistencia,
+IDTipoActa=a_IDTipoActa,
+NumActa=a_NumActa,
+Observaciones=a_Observaciones,
+Agenda=a_Agenda,
+Detalle	=a_Detalle,
+Acuerdos=a_Acuerdos,
+Costos=a_Costos WHERE IDActa= a_IDActa;
+	END$$
+
+DELIMITER ;
+
+
+
+------------------------------- categoria tipo cambio
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_CategoriaTipoCambio`(IN c_IDCategoriaTipoCambio INT, IN c_Categoria VARCHAR(20),IN c_IDEntidadFinanciera INT,
+IN c_IDMoneda INT)
+    
+	BEGIN
+UPDATE tbl_categoriatipocambio SET
+Categoria=c_Categoria,
+IDEntidadFinanciera=c_EntidadFinanciera,
+IDMoneda=IDMoneda WHERE	IDCategoriaTipoCambio = c_IDCategoriaTipoCambio;
+	END$$
+
+DELIMITER ;
+
+
+
+
+
+---------------------- Costos---------------------------------
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_Costos`(IN  c_IDCostos INT, IN c_Descripcion VARCHAR(20), IN c_Estado VARCHAR(10))
+   
+	BEGIN
+UPDATE tbl_costos SET 
+Descripcion=c_DesCripcion,
+Estado=c_Estado WHERE 
+IDCostos=c_IDCostos;
+	END$$
+
+DELIMITER ;
+
+
+
+---------------------- Cuentas Bancarias
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_CuentasBancarias`(IN c_IDCuentaBancaria INT,
+IN c_NumeroCuenta VARCHAR(20),
+IN c_Descripcion  VARCHAR(200),
+IN c_TipoCuenta VARCHAR(15),
+IN c_IDMoneda  INT,
+IN c_IDEntidadFinaciera INT,
+IN c_CuentaCliente VARCHAR(20),
+IN c_SaldoLibros DOUBLE,
+IN c_SaldoBancos DOUBLE,
+IN c_Estado VARCHAR(10))
+    
+	BEGIN
+	
+	UPDATE  tbl_cuentasbancarias SET 
+ NumeroCuenta= c_NumeroCuenta ,
+ Descripcion=c_Descripcion  ,
+ TipoCuenta=c_TipoCuenta ,
+ IDMoneda=c_IDMoneda  ,
+ IDEntidadFinanciera=c_IDEntidadFinaciera ,
+ CuentaCliente=c_CuentaCliente ,
+ SaldoLibros=c_SaldoLibros ,
+ SaldoBancos=c_SaldoBancos ,
+ Estado= c_Estado
+WHERE IDCuentaBancaria=	c_IDCuentaBancaria;
+	END$$
+
+DELIMITER ;
+------Documento
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_Documentos`(IN d_IDDocumento INT, IN d_Descripcion VARCHAR(200), IN d_TipoMovimiento VARCHAR(20))
+   
+	BEGIN
+UPDATE tbl_documentos SET 
+Descripcion= d_Descripcion,
+TipoMovimiento=d_TipoMovimiento
+ WHERE IDDocumento =d_IDDocumento;
+	END$$
+
+DELIMITER ;
+
+
+------------------------------------visualizar------------------------------
+
+DELIMITER $$
+ 
+CREATE PROCEDURE `scni`.`Vie_Costos`()
+ 
+ BEGIN
+SELECT IDCostos,Descripcion,Estado FROM tbl_costos;
+ 	
+ END$$
+ 
+ DELIMITER ;
+ 
+ 
+  /*-----------------------------------------------------------------------------------------------------*/
+ 
+  DELIMITER $$
+ 
+CREATE PROCEDURE `scni`.`Vie_CuentasBancarias`()
+ 
+ BEGIN
+SELECT IDCuentaBancaria,NumeroCuenta,Descripcion,TipoCuenta,IDMoneda,IDEntidadFinanciera,CuentaCliente,SaldoLibros,SaldoBancos,Estado FROM tbl_cuentasbancarias;
+ 	
+ END$$
+ 
+ DELIMITER ;
+ /*-----------------------------------------------------------------------------------------------------*/
+  DELIMITER $$
+ 
+CREATE PROCEDURE `scni`.`Vie_Documentos`()
+ 
+ BEGIN
+SELECT IDDocumento,Descripcion,TipoMovimiento FROM tbl_documentos;
+ 	
+ END$$
+ 
+ DELIMITER ;
+ 
+ ---------------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_Actas`()
+    
+	BEGIN
+SELECT IDActa,Fecha,HoraInicio,HoraFinal,Lugar,Asistencia,IDTipoActa,NumActa,Observaciones,Agenda,Detalle,Acuerdos,Costos FROM tbl_actas;
+	END$$
+
+DELIMITER ;
+-------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Vie_CategoriaTipoCambio`()
+   
+	BEGIN
+SELECT IDCategoriaTipoCambio,Categoria,IDEntidadFinanciera,IDMoneda FROM tbl_categoriatipocambio;
+	END$$
+
+DELIMITER ;

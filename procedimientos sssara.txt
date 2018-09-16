@@ -1,0 +1,234 @@
+Invercionista Insert
+
+DELIMITER $$
+
+CREATE
+    /*[DEFINER = { user | CURRENT_USER }]*/
+    PROCEDURE `scni`.`InsSocioInver`(IN  c_IDInversionista INT,IN c_TipoPersona VARCHAR(20), IN c_Cedula VARCHAR(20), IN c_NombrePersona VARCHAR(20), 
+    IN c_Apellido1 VARCHAR(20),IN c_Apellido2 VARCHAR(20),IN c_TelefonoCasa VARCHAR(10),IN c_TelefonoMovil VARCHAR(10),IN c_TelefonoTrabajo VARCHAR(10),
+    IN c_Direccion VARCHAR(200),IN c_FechaNacimiento VARCHAR(15),IN c_Correo VARCHAR(200),IN c_Estado  VARCHAR(10))
+    
+	BEGIN
+INSERT INTO tbl_socioinvercionista(IDInversionista,TipoPersona,Cedula,NombrePersona, 
+ Apellido1,Apellido2,TelefonoCasa,TelefonoMovil,TelefonoTrabajo,Direccion,FechaNacimiento,Correo,Estado)
+VALUES (c_IDInversionista,c_TipoPersona,c_Cedula,c_NombrePersona, 
+ c_Apellido1,c_Apellido2,c_TelefonoCasa,c_TelefonoMovil,c_TelefonoTrabajo,c_Direccion,c_FechaNacimiento,c_Correo,c_Estado);
+
+	END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Instipoactas`( IN a_IDTipoActa INT ,
+IN a_Descripcion VARCHAR(20),
+IN a_NumeroActual INT,
+IN a_Estado VARCHAR(20))
+   
+    
+	BEGIN
+	INSERT INTO tbl_tipoactas(IDTipoActa,Descripcion,NumeroActual,Estado)
+VALUES (a_IDTipoActa,a_Descripcion,a_NumeroActual,a_Estado);
+	END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_tipocambio`(IN c_IDRegistroTCambio INT, IN c_Abreviatura VARCHAR(5),IN c_IDMoneda INT,
+IN c_IDCategoriaTCambio INT,IN c_Fecha DATETIME,IN c_ValorTipoCambio DOUBLE,IN c_Estado VARCHAR(10))
+    
+	BEGIN
+INSERT INTO tbl_tipocambio(IDRegistroTCambio,Abreviatura,IDMoneda,IDCategoriaTCambio,Fecha,ValorTipoCambio,Estado)
+VALUES  (c_IDRegistroTCambio,c_Abreviatura,c_IDMoneda,c_IDCategoriaTCambio,c_Fecha,c_ValorTipoCambio,c_Estado);
+	END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_tipoproyectos`(IN c_IDTipoProyecto INT, IN c_Descripcion VARCHAR(20),IN c_Estado VARCHAR(10))
+	BEGIN
+INSERT INTO tbl_tipoproyectos(IDTipoProyecto,Descripcion,Estado)
+VALUES  (c_IDTipoProyecto,c_Descripcion,c_Estado);
+	END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Ins_Usuario`(IN d_IDUsuario INT,
+IN d_NombrePersona VARCHAR(20),
+IN d_Apellido1 VARCHAR(20),
+IN d_Apellido2 VARCHAR(20),
+IN d_Usuario VARCHAR(20),
+IN d_Contraseña VARCHAR(255),
+IN d_TipoUsuario VARCHAR(20),
+IN d_Correo VARCHAR(200),
+IN d_Estado VARCHAR(10))
+
+	BEGIN
+	INSERT INTO tbl_usuarios(IDUsuario,NombrePersona,Apellido1,Apellido2,Usuario,Contraseña,TipoUsuario,Correo,Estado)
+	VALUES (d_IDUsuario,d_NombrePersona,d_Apellido1,d_Apellido2,d_Usuario,d_Contraseña,d_TipoUsuario,d_Correo,d_Estado);
+	END$$
+
+DELIMITER ;
+--------------------------------UPDATES----------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_tipoactas`(IN a_IDTipoActa INT ,IN a_Descripcion VARCHAR(20), IN a_NumeroActual INT,IN a_Estado VARCHAR(20))
+   
+	BEGIN
+UPDATE tbl_tipoactas SET
+Descripcion = a_Descripcion,
+NumeroActual = a_NumeroActual,
+Estado = a_Estado
+ WHERE IDTipoActa= a_IDTipoActa;
+	END$$
+
+DELIMITER ;
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_socioinver`(IN  c_IDInvercionista INT,IN c_TipoPersona VARCHAR(20), IN c_Cedula VARCHAR(20), IN c_NombrePersona VARCHAR(20), 
+    IN c_Apellido1 VARCHAR(20),IN c_Apellido2 VARCHAR(20),IN c_TelefonoCasa VARCHAR(10),IN c_TelefonoMovil VARCHAR(10),IN c_TelefonoTrabajo VARCHAR(10),
+    IN c_Direccion VARCHAR(200),IN c_FechaNacimiento VARCHAR(15),IN c_Correo VARCHAR(200),IN c_Estado  VARCHAR(10))
+   
+	BEGIN
+UPDATE tbl_sociosinvercionistas SET
+TipoPersona=c_TipoPersona,
+Cedula=c_Cedula,
+NombrePersona=c_NombrePersona,
+Apellido1=c_Apellido1,
+Apellido2=c_Apellido2,
+TelefonoCasa=c_TelefonoCasa,
+TelefonoMovil=c_TelefonoMovil,
+TelefonoTrabajo=c_TelefonoTrabajo,
+Direccion=c_Direccion,
+FechaNacimiento=c_FechaNacimiento,
+Correo=c_Correo,
+Estado=c_Estado
+ WHERE IDIvercionista= c_IDInvercionista;
+	END$$
+
+DELIMITER ;
+
+
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_tipocambio`(IN c_IDRegistroTCambio INT, IN c_Abreviatura VARCHAR(5),IN c_IDMoneda INT,
+IN c_IDCategoriaTCambio INT,IN c_Fecha DATETIME,IN c_ValorTipoCambio DOUBLE,IN c_Estado VARCHAR(10))
+	BEGIN
+UPDATE tbl_tipocambio SET
+Abreviatura=c_Abreviatura,
+IDMoneda=c_IDMoneda,
+IDCategoriaTCambio=c_IDCategoriaTCambio, 
+Fecha=c_Fecha,
+ValorTipoCambio=c_ValorTipoCambio,
+Estado=c_Estado
+WHERE	IDRegistroTCambio = c_IDRegistroTCambio;
+	END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_tipoproyectos`(IN c_IDTipoProyectos INT, IN c_Descripcion VARCHAR(200),IN c_Estado VARCHAR(10))
+
+	BEGIN
+UPDATE tbl_tipoproyectos SET
+Descripcion=c_Descripcion,
+Estado=c_Estado
+WHERE	IDTipoProyectos = c_IDTipoProyectos;
+	END$$
+
+DELIMITER ;
+
+
+
+
+DELIMITER $$
+
+CREATE PROCEDURE `scni`.`Upd_Usuario`(IN d_IDUsuario INT,
+IN d_NombrePersona VARCHAR(20),
+IN d_Apellido1 VARCHAR(20),
+IN d_Apellido2 VARCHAR(20),
+IN d_Usuario VARCHAR(20),
+IN d_Contraseña VARCHAR(255),
+IN d_TipoUsuario VARCHAR(20),
+IN d_Correo VARCHAR(200),
+IN d_Estado VARCHAR(10))
+    
+	BEGIN
+UPDATE tbl_usuarios SET
+NombrePersona=d_NombrePersona,
+Apellido1=d_Apellido1,
+Apellido2=d_Apellido2,
+Usuario=d_Usuario,
+Contraseña=d_Contraseña,
+TipoUsuario=d_TipoUsuario,
+Correo=d_Correo,
+Estado=d_Estado
+WHERE	IDUsuario = d_IDUsuario;
+	END$$
+
+DELIMITER ;
+
+
+
+
+DELIMITER $$
+ 
+CREATE PROCEDURE `scni`.`Vie_Usuario`()
+ 
+ BEGIN
+SELECT IDUsuario,NombrePersona,Apellido1,Apellido2,Usuario,Contraseña,TipoUsuario,Correo,Estado FROM tbl_usuarios;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+
+DELIMITER $$
+ 
+CREATE PROCEDURE `scni`.`Vie_SocioInver`()
+ 
+ BEGIN
+SELECT IDInvercionista,TipoPersona,Cedula,NombrePersona,Apellido1,Apellido2,TelefonoCasa,TelefonoMovil,TelefonoTrabajo,Direccion,FechaNacimiento,Correo,Estado FROM tbl_sociosinvercionistas;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+
+DELIMITER $$
+ 
+CREATE PROCEDURE `scni`.`Vie_TipoCambio`()
+ 
+ BEGIN
+SELECT IDRegistroTCambio,Abreviatura,IDMoneda,IDCategoriaTCambio,Fecha,ValorTipoCambio,Estado FROM tbl_tipocambio;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+DELIMITER $$
+ 
+CREATE PROCEDURE `scni`.`Vie_tipoactas`()
+ 
+ BEGIN
+SELECT IDTipoActa,Descripcion,NumeroActual,Estado FROM tbl_tipoactas;
+ 	
+ END$$
+ 
+ DELIMITER ;

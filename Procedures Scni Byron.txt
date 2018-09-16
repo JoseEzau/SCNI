@@ -1,0 +1,296 @@
+************************************************Insert*******************************************************************************************************************************************************************
+-----------------------------------------------------Movimiento----------------------------------------------------------------------------------------------
+DELIMITER $$
+CREATE PROCEDURE Ins_Movimiento(IN m_IDlibro INT, IN m_IDCuentaBancaria INT, IN m_IDMoneda INT, IN m_IDTipoDocumento INT,
+ IN m_IDTipoDescripcion INT, IN m_IDTipoMovimiento INT, IN m_NumDocumento INT, IN m_FechaDocumento DATE, IN m_Monto DOUBLE,
+ IN m_TipoCambio DOUBLE, IN m_MontoMonedaLocal DOUBLE, IN m_SaldoActual DOUBLE, IN m_Beneficiario VARCHAR(20),IN m_Detalle VARCHAR(200),
+  IN m_FechaRegistro DATE)
+ BEGIN
+INSERT INTO tbl_movimientolibro(IDlibro, IDCuentaBancaria, IDMoneda, IDTipoDocumento, IDTipoDescripcion, IDTipoMovimiento, NumDocumento, FechaDocumento,
+Monto, TipoCambio, MontoMonedaLocal, SaldoActual, Beneficiario, Detalle, FechaRegistro)
+
+VALUES(m_IDlibro, m_IDCuentaBancaria, m_IDMoneda, m_IDTipoDocumento, m_IDTipoDescripcion, m_IDTipoMovimiento, m_NumDocumento,
+ m_FechaDocumento, m_Monto, m_TipoCambio, m_MontoMonedaLocal, m_SaldoActual, m_Beneficiario, m_Detalle, m_FechaRegistro);
+END$$
+
+
+
+DELIMITER;
+
+--------------------------------------------------------Notas----------------------------------------------------------------------------------
+DELIMITER $$
+
+CREATE PROCEDURE Ins_Notas(IN n_IDNotas INT, IN n_Fecha DATE, IN n_Lugar VARCHAR(200), IN n_Asistencia VARCHAR(200),
+IN n_Objetivos VARCHAR(200), IN n_Detalle VARCHAR(200), IN n_Acuerdos VARCHAR(200), IN n_Acciones VARCHAR(200),
+IN n_Fotos VARCHAR(255), IN n_Costos DOUBLE, IN n_Beneficiario VARCHAR(100), IN n_FechaRegistro DATE, IN n_Estado VARCHAR(10)  )
+ BEGIN
+INSERT INTO tbl_notas(IDNotas, Fecha, Lugar, Asistencia, Objetivos, Detalle, Acciones, Fotos, Costos, Beneficiario, FechaRegistro, Estado)
+
+VALUES(n_IDNotas, n_Fecha, n_Lugar, n_Asistencia, n_Objetivos, n_Detalle, n_Acuerdos, n_Acciones, n_Fotos, n_Costos, n_Beneficiario, n_FechaRegistro, n_Estado);
+END$$
+
+
+
+DELIMITER;
+
+------------------------------------------------------SociosFundadores----------------------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+CREATE PROCEDURE Ins_SociosFundadores(IN f_IDSocioFundador INT, IN f_NombrePersona VARCHAR(20), IN f_Apellido1 VARCHAR(20), 
+IN f_Apellido2 VARCHAR(20), IN f_Cedula VARCHAR(20), IN f_Direccion VARCHAR(200), IN f_Correo VARCHAR(200),
+ IN f_Telefono VARCHAR(200), IN f_IDJuntaDirectiva INT, IN f_Estado VARCHAR(10))
+
+ BEGIN
+INSERT INTO tbl_sociosfundadores(IDSocioFundador, NombrePersona, Apellido1, Apellido2, Cedula, Direccion, Correo, Telefono, IDJuntaDirectiva, Estado)
+
+VALUES(f_IDSocioFundador, f_NombrePersona, f_Apellido1, f_Apellido2, f_Cedula, f_Direccion, f_Correo, f_Telefono, f_IDJuntaDirectiva, f_Estado);
+END$$
+
+
+
+DELIMITER;
+
+-------------------------------------------------------------------Boletas-------------------------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+CREATE PROCEDURE Ins_Boletas(IN b_IDBoleta INT, IN b_IDInvercionista INT, IN b_Descripcion VARCHAR(200), IN b_NumMedidor VARCHAR(15),
+IN b_NumContrato INT, IN b_MontoDonado DOUBLE, IN b_FirmaDigital VARCHAR(255), IN b_ImagenCedula VARCHAR(255))
+
+ BEGIN
+INSERT INTO tbl_boletas(IDBoleta, IDInvercionista, Descripcion, NumMedidor, NumContrato, MontoDonado, FirmaDigital, ImagenCedula)
+
+VALUES(b_IDBoleta, b_IDInvercionista, b_Descripcion, b_NumMedidor, b_NumContrato, b_MontoDonado, b_FirmaDigital, b_ImagenCedula);
+END$$
+
+
+
+DELIMITER;
+
+-------------------------------------------------------------------Proyectos-----------------------------------------------------------------------------------------------------------------------------------------
+
+
+DELIMITER $$
+CREATE PROCEDURE Ins_Proyectos(IN p_IDProyecto INT, IN p_Descripcion VARCHAR(20), IN p_Periodo DATE, IN p_MontoProyecto DOUBLE, IN p_MontoEjecutado DOUBLE,
+IN p_MontoDonado DOUBLE, IN p_MontoContrapartida DOUBLE, IN p_Objetivo VARCHAR(200), IN p_Metas VARCHAR(200), IN p_Actividades VARCHAR(300),
+IN p_Lugar VARCHAR(50), IN p_Costo DOUBLE, IN p_Resultados VARCHAR(300), IN p_fotos VARCHAR(100), IN p_Estado VARCHAR(10))
+ BEGIN
+INSERT INTO tbl_boletas(IDProyecto,Descripcion,Periodo, MontoProyecto,MontoEjecutado,
+MontoDonado,MontoContrapartida,Objetivo, Metas,Actividades,Lugar,Costo,Resultados, fotos,Estado)
+
+VALUES(p_IDProyecto,p_Descripcion,p_Periodo, p_MontoProyecto, p_MontoEjecutado,
+p_MontoDonado, p_MontoContrapartida, p_Objetivo, p_Metas, p_Actividades, p_Lugar, p_Costo, p_Resultados, p_fotos, p_Estado);
+END$$
+
+
+
+DELIMITER;
+*************************************************************************************************************************************************************************************************************************************
+
+***************************************************************************Update***********************************************************************************************************************************
+---------------------------------------------------------------------------Boletas----------------------------------------------------------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE Upd_Boletas (IN b_IDBoleta INT , IN b_IDInvercionista INT, IN b_Descripcion VARCHAR(200),
+IN b_NumMedidor VARCHAR(15), IN b_NumContrato INT, IN b_MontoDonado DOUBLE, IN b_FirmaDigital VARCHAR(255), IN b_ImagenCedula VARCHAR(255))
+   
+	BEGIN
+UPDATE tbl_boletas SET
+IDInvercionista = b_IDInvercionista,
+Descripcion = b_Descripcion,
+NumMedidor = b_NumMedidor,
+NumContrato = b_NumContrato,
+MontoDonado = b_MontoDonado,
+FirmaDigital = b_FirmaDigital,
+ImagenCedula = b_ImagenCedula
+
+ WHERE IDBoleta= b_IDBoleta;
+	END$$
+
+DELIMITER ;
+------------------------------------------------------------------MovimientoLibro---------------------------------------------------------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE Upd_MovimientoLibro(IN m_IDlibro INT, IN m_IDCuentaBancaria INT, IN m_IDMoneda INT, IN m_IDTipoDocumento INT, IN m_NumDocumento INT,
+IN m_FechaDocumento DATE, IN m_Monto DOUBLE, IN m_TipoCambio DOUBLE, IN m_MontoMonedaLocal DOUBLE, IN m_SaldoActual DOUBLE, IN m_Beneficiario VARCHAR(20), 
+IN m_Detalle VARCHAR(200), IN m_FechaRegistro DATE)
+   
+	BEGIN
+UPDATE tbl_movimientolibro SET
+IDCuentaBancaria = m_IDCuentaBancaria,
+IDMoneda = m_IDMoneda,
+IDTipoDocumento = m_IDTipoDocumento,
+IDTipoDescripcion = m_IDTipoDescripcion,
+IDTipoMovimiento = m_IDTipoMovimiento,
+NumDocumento = m_NumDocumento,
+FechaDocumento = m_FechaDocumento,
+Monto = m_Monto,
+TipoCambio = m_TipoCambio,
+MontoMonedaLocal = m_MontoMonedaLocal,
+SaldoActual = m_SaldoActual,
+Beneficiario = m_Beneficiario,
+Detalle = m_Detalle,
+FechaRegistro = m_FechaRegistro
+
+ WHERE IDlibro = m_IDlibro;
+	END$$
+
+-----------------------------------------------------Notas----------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE Upd_MovimientoLibro(IN m_IDlibro INT, IN m_IDCuentaBancaria INT, IN m_IDMoneda INT, IN m_IDTipoDocumento INT, IN m_NumDocumento INT,
+IN m_FechaDocumento DATE, IN m_Monto DOUBLE, IN m_TipoCambio DOUBLE, IN m_MontoMonedaLocal DOUBLE, IN m_SaldoActual DOUBLE, IN m_Beneficiario VARCHAR(20), 
+IN m_Detalle VARCHAR(200), IN m_FechaRegistro DATE)
+   
+	BEGIN
+UPDATE tbl_movimientolibro SET
+IDCuentaBancaria = m_IDCuentaBancaria,
+IDMoneda = m_IDMoneda,
+IDTipoDocumento = m_IDTipoDocumento,
+IDTipoDescripcion = m_IDTipoDescripcion,
+IDTipoMovimiento = m_IDTipoMovimiento,
+NumDocumento = m_NumDocumento,
+FechaDocumento = m_FechaDocumento,
+Monto = m_Monto,
+TipoCambio = m_TipoCambio,
+MontoMonedaLocal = m_MontoMonedaLocal,
+SaldoActual = m_SaldoActual,
+Beneficiario = m_Beneficiario,
+Detalle = m_Detalle,
+FechaRegistro = m_FechaRegistro
+
+ WHERE IDlibro = m_IDlibro;
+	END$$
+
+DELIMITER ;
+----------------------------------------------------------------Proyecto------------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE Upd_Proyectos (IN p_IDProyecto INT, IN p_Descripcion VARCHAR(20), IN p_Periodo DATE, IN p_MontoProyecto DOUBLE, IN p_MontoEjecutado DOUBLE,
+IN p_MontoDonado DOUBLE, IN p_MontoContrapartida DOUBLE, IN p_Objetivo VARCHAR(200), IN p_Metas VARCHAR(200), IN p_Actividades VARCHAR(300), IN p_Lugar VARCHAR(50),
+IN p_Costo DOUBLE, IN p_Resultados VARCHAR(300), p_fotos VARCHAR(1000), IN p_Estado VARCHAR(10))
+   
+	BEGIN
+UPDATE tbl_proyectos SET
+Descripcion = p_Descripcion,
+Periodo = p_Periodo,
+MontoProyecto = p_MontoProyecto,
+MontoEjecutado = p_MontoEjecutado,
+MontoDonado = p_MontoDonado,
+MontoContrapartida = p_MontoContrapartida,
+Objetivo = p_Objetivo,
+Metas = p_Metas,
+Actividades = p_Actividades,
+Lugar = p_Lugar,
+Costo = p_Costo,
+Resultados = p_Resultados,
+fotos = p_fotos,
+Estado = p_Estado
+
+ WHERE IDProyecto = p_IDProyecto;
+	END$$
+
+DELIMITER ;
+
+-----------------------------------------------------------------SocioFundador------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+
+CREATE PROCEDURE Upd_SociosFundadores (IN f_IDSocioFundador INT,IN f_NombrePersona VARCHAR(20), IN f_Apellido1 VARCHAR(20), IN f_Apellido2 VARCHAR(20),
+IN f_Cedula VARCHAR(20), IN f_Direccion VARCHAR(200), IN f_Correo VARCHAR(200), IN f_Telefono VARCHAR(200), IN f_IDJuntaDirectiva INT, IN f_Estado VARCHAR(10))
+   
+	BEGIN
+UPDATE tbl_sociosfundadores SET
+
+NombrePersona = f_NombrePersona,
+Apellido1 = f_Apellido1,
+Apellido2 = f_Apellido2,
+Cedula = f_Cedula,
+Direccion = f_Direccion,
+Correo = f_Correo,
+Telefono = f_Telefono,
+IDJuntaDirectiva = f_IDJuntaDirectiva,
+Estado = f_Estado
+
+ WHERE IDSocioFundador = f_IDSocioFundador;
+	END$$
+
+DELIMITER ;
+
+*************************************************************************************************************************************************************************************************
+
+-------------------------------------------------------------Boletas----------------------------------------------------------------------------------------------------
+
+
+DELIMITER $$
+ 
+CREATE PROCEDURE Vie_Boletas()
+ 
+ BEGIN
+SELECT IDBoleta, IDInvercionista, Descripcion, NumMedidor, NumContrato, MontoDonado, FirmaDigital, ImagenCedula FROM tbl_boletas;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+
+
+----------------------------------------------------------------MovimentoLibro-----------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+ 
+CREATE PROCEDURE Vie_MovimientoLibro()
+ 
+ BEGIN
+SELECT IDlibro, IDCuentaBancaria, IDMoneda, IDTipoDocumento, IDTipoDescripcion, IDTipoMovimiento, NumDocumento, FechaDocumento,
+Monto, TipoCambio, MontoMonedaLocal, SaldoActual, Beneficiario, Detalle, FechaRegistro FROM tbl_movimientolibro;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+------------------------------------------------------Notas----------------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+ 
+CREATE PROCEDURE Vie_Notas()
+ 
+ BEGIN
+SELECT IDNotas, Fecha, Lugar, Asistencia, Objetivos, Detalle, Acciones, Fotos, Costos, Beneficiario, FechaRegistro, Estado FROM tbl_notas;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+-----------------------------------------------Proyectos----------------------------------------------------------------------------------------------------------
+
+DELIMITER $$
+ 
+CREATE PROCEDURE Vie_Proyectos()
+ 
+ BEGIN
+SELECT IDProyecto, Descripcion, Periodo, MontoProyecto, 
+     MontoEjecutado, MontoDonado, MontoContrapartida, Objetivo, Metas, Actividades, Lugar,Costo,
+     Resultados, Fotos,Estado FROM tbl_proyectos;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+------------------------------------------------------SociosFundadores------------------------------------------------------
+
+DELIMITER $$
+ 
+CREATE PROCEDURE Vie_SociosFundadores()
+ 
+ BEGIN
+SELECT IDSocioFundador, NombrePersona, Apellido1, Apellido2, Cedula, Direccion, Correo, Telefono, IDJuntaDirectiva, Estado FROM tbl_sociosfundadores;
+ 	
+ END$$
+ 
+ DELIMITER ;
+
+------------------------------------------------
